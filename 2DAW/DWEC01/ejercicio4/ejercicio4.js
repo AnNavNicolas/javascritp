@@ -1,0 +1,1 @@
+    window.alert('Hola soy Antonio desde un archivo externo')
