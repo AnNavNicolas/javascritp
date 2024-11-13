@@ -8,10 +8,30 @@ nombre.addEventListener("keyup",function(ev){
         salida.textContent = '';
         if(nombre.value.length === 0){
             //imprimir array
-            salida.textContent = nombres;
+            const primerNombre = nombres[0]
+            const ultimoNombre = nombres[nombres.length - 1]
+
+            nombres.sort((a,b) => {
+                if (a.trim().length <= b.trim().length) return -1
+                else return 1
+            })
+
+            let sumaNombres = 0;
+            for (let i = 0; i < nombres.length; i++) {
+                sumaNombres += nombres[i].trim().length  
+            }
+
+            const media = Math.ceil(sumaNombres / nombres.length)
+
+            salida.innerHTML += `Primer Nombre: ${primerNombre}<br>`
+            salida.innerHTML += `Ultimo Nombre: ${ultimoNombre}<br>`
+            salida.innerHTML += `Nombre más corto: ${nombres[0]}<br>`
+            salida.innerHTML += `Nombre más largo: ${nombres[nombres.length - 1]}<br>`
+            salida.innerHTML += `Media: ${media}<br>`
+
         } else {
-            if(/\d/.test(nombre.value)){
-                salida.textContent = 'El formato es incorrecto'
+            if(!/^[A-ZÑ][a-zñ]+ [A-ZÑ][a-zñ]+$/.test(nombre.value)){
+                salida.textContent = 'El formato es incorrecto. El formato correcto es Nombre Apellido'
             } else {
                 nombres.push(nombre.value.trim())
             }
@@ -19,13 +39,3 @@ nombre.addEventListener("keyup",function(ev){
         }
     }
 })
-
-function checkName (name){
-    if(/\d/.test(name)){
-        salida.textContent = 'No puede contener numeros'
-    } else if(!/^[A-ZÑ]/.test(name)){
-        salida.textContent = 'El nombre debe de empezar por mayúscula'
-    } else if(!/[a-z]$/.test(name)){
-        salida.textContent = 'El apellido debe de terminar por minúscula'
-    }
-}
